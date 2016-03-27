@@ -1,6 +1,6 @@
 var Cat = function (data) {
 
-    this.clickCount = ko.observable(0);
+    this.clickCount = ko.observable(data.clickCount);
     this.name = ko.observable(data.name);
     this.imgSrc = ko.observable(data.imgSrc);
     this.imgAttribution = ko.observable(data.imgAttribution);
@@ -13,6 +13,7 @@ var ViewModel = function () {
     var self = this;
 
     this.currentCat = ko.observable( new Cat({
+        clickCount: 0,
         name: 'Tabby',
         imgSrc: 'img/434164568_fea0ad4013_z.jpg',
         imgAttribution: 'https://pbs.twimg.com/profile_images/378800000532546226/dbe5f0727b69487016ffd67a6689e75a.jpeg',
