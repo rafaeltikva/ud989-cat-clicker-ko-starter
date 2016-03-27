@@ -6,21 +6,21 @@
 </head>
 <body>
 <ul id="cat-list"></ul>
-<div id="cat">
+<div id="cat" data-bind="with: currentCat">
 
     <h2 id="cat-name" data-bind="text: name"></h2>
-    <h3 id="cat-level" data-bind="text: catLevel"></h3>
+    <h3 id="cat-level" data-bind="text: $parent.catLevel"></h3>
     <div id="cat-count" data-bind="text: clickCount"></div>
     <img id="cat-img" src="" data-bind="
-        click: incrementCounter,
+        click: $parent.incrementCounter,
         attr: {src: imgSrc}"
          alt="cute cat">
     <ul data-bind="foreach: catNicknames">
         <li>Cat Nickname #<span data-bind="text: $index"></span>: <span data-bind="text: $data"></span></li>
     </ul>
-    <label for="cat-nickname">Cat Nickname: </label><input id="cat-nickname" type="text">
-    <a href="#" id="add-cat-nickname-button" data-bind="click: addCatNickname, clickBubble: false">Add</a>
-    <a href="#" id="remove-cat-nickname-button" data-bind="click: removeCatNickname, clickBubble: false">Remove</a>
+    <label for="cat-nickname">Cat Nickname: </label><input id="cat-nickname" data-bind="value: $parent.catNickNameInput" type="text">
+    <a href="#" id="add-cat-nickname-button" data-bind="click: $parent.addCatNickname, clickBubble: false">Add</a>
+    <a href="#" id="remove-cat-nickname-button" data-bind="click: $parent.removeCatNickname, clickBubble: false">Remove</a>
 
 </div>
 <script src="js/lib/knockout-3.2.0.js"></script>

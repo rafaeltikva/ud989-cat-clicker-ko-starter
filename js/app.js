@@ -1,5 +1,5 @@
 var Cat = function() {
-    var self = this;
+
     this.clickCount = ko.observable(0);
     this.name = ko.observable('Tabby');
     this.imgSrc = ko.observable('img/434164568_fea0ad4013_z.jpg');
@@ -10,36 +10,38 @@ var Cat = function() {
 
 var ViewModel = function() {
 
-    this.currentCat = ko.observable(new Cat());
+    var self = this;
 
-    this.incrementCounter = function () {
-        this.currentCat().clickCount(this.currentCat().clickCount() + 1);
+    self.currentCat = ko.observable(new Cat());
+
+    self.incrementCounter = function () {
+        self.currentCat().clickCount(self.currentCat().clickCount() + 1);
     };
 
-    this.catLevel = ko.computed(function() {
-        if (this.currentCat().clickCount() >= 10 && this.currentCat().clickCount() < 20) {
+    self.catLevel = ko.computed(function() {
+        if (self.currentCat().clickCount() >= 10 && self.currentCat().clickCount() < 20) {
             return "Infant";
         }
-        if (this.currentCat().clickCount() >= 20) {
+        if (self.currentCat().clickCount() >= 20) {
             return "Teen";
         }
         return "Newborn";
 
-    }, this);
+    }, self);
 
-    this.catNickNameInput = ko.observable('');
+    self.catNickNameInput = ko.observable();
 
-    this.addCatNickname = function() {
+    self.addCatNickname = function() {
         // var nickname = $('#cat-nickname').val(); - replaced with 'value' bind
-        var nickname = this.catNickNameInput();
-        this.currentCat().catNicknames.push(nickname);
+        var nickname = self.catNickNameInput();
+        self.currentCat().catNicknames.push(nickname);
     };
-    this.removeCatNickname = function() {
+    self.removeCatNickname = function() {
         // var nickname = $('#cat-nickname').val();
-        var nickname = this.catNickNameInput();
-        var foundCatIndex = this.currentCat().catNicknames().indexOf(nickname);
+        var nickname = self.catNickNameInput();
+        var foundCatIndex = self.currentCat().catNicknames().indexOf(nickname);
         if (foundCatIndex >= 0) {
-            this.currentCat().catNicknames.splice(foundCatIndex, 1);
+            self.currentCat().catNicknames.splice(foundCatIndex, 1);
         }
 
     };
