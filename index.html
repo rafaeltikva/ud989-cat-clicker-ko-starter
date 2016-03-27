@@ -3,24 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Cat Clicker</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<ul id="cat-list"></ul>
-<div id="cat" data-bind="with: currentCat">
+<ul id="cat-list" data-bind="foreach: catList">
 
-    <h2 id="cat-name" data-bind="text: name"></h2>
-    <h3 id="cat-level" data-bind="text: $parent.catLevel"></h3>
-    <div id="cat-count" data-bind="text: clickCount"></div>
-    <img id="cat-img" src="" data-bind="
-        click: $parent.incrementCounter,
+    <div id="cat" class="cat" data-bind="click: $parent.handlers.markCatAsCurrent, attr: {id: catId}" >
+
+        <h2 class="cat-name" data-bind="text: name"></h2>
+
+        <h3 class="cat-level" data-bind="text: catLevel"></h3>
+
+        <div class="cat-count" data-bind="text: clickCount"></div>
+        <img class="cat-img" src="" data-bind="
+        click: $parent.handlers.incrementCounter,
         attr: {src: imgSrc}"
-         alt="cute cat">
-    <ul data-bind="foreach: catNicknames">
-        <li>Cat Nickname #<span data-bind="text: $index"></span>: <span data-bind="text: $data"></span></li>
-    </ul>
-    <label for="cat-nickname">Cat Nickname: </label><input id="cat-nickname" data-bind="value: $parent.catNickNameInput" type="text">
-    <a href="#" id="add-cat-nickname-button" data-bind="click: $parent.addCatNickname, clickBubble: false">Add</a>
-    <a href="#" id="remove-cat-nickname-button" data-bind="click: $parent.removeCatNickname, clickBubble: false">Remove</a>
+             alt="cute cat">
+        <div class="cat-nicknames-wrapper">
+            <ul data-bind="foreach: catNicknames">
+                <li>Cat Nickname #<span data-bind="text: $index"></span>: <span data-bind="text: $data"></span></li>
+            </ul>
+            <label for="cat-nickname">Cat Nickname: </label><input id="cat-nickname"
+                                                                   data-bind="value: $parent.catNickNameInput"
+                                                                   type="text">
+            <a href="#" id="add-cat-nickname-button" data-bind="click: $parent.handlers.addCatNickname, clickBubble: false">Add</a>
+            <a href="#" id="remove-cat-nickname-button"
+               data-bind="click: $parent.handlers.removeCatNickname, clickBubble: false">Remove</a>
+        </div>
+
+    </div>
+</ul>
+
+<div id="selected-cat" data-bind="html: currentCatHtml">
 
 </div>
 <script src="js/lib/knockout-3.2.0.js"></script>
