@@ -12,36 +12,36 @@ var ViewModel = function() {
 
     var self = this;
 
-    self.currentCat = ko.observable(new Cat());
+    this.currentCat = ko.observable(new Cat());
 
-    self.incrementCounter = function () {
-        self.currentCat().clickCount(self.currentCat().clickCount() + 1);
+    this.incrementCounter = function () {
+        this.clickCount(this.clickCount() + 1); // this is run from currentCat's context (using a with binding)
     };
 
-    self.catLevel = ko.computed(function() {
-        if (self.currentCat().clickCount() >= 10 && self.currentCat().clickCount() < 20) {
+    this.catLevel = ko.computed(function() {
+        if (this.currentCat().clickCount() >= 10 && this.currentCat().clickCount() < 20) {
             return "Infant";
         }
-        if (self.currentCat().clickCount() >= 20) {
+        if (this.currentCat().clickCount() >= 20) {
             return "Teen";
         }
         return "Newborn";
 
-    }, self);
+    }, this);
 
-    self.catNickNameInput = ko.observable();
+    this.catNickNameInput = ko.observable();
 
-    self.addCatNickname = function() {
+    this.addCatNickname = function() {
         // var nickname = $('#cat-nickname').val(); - replaced with 'value' bind
-        var nickname = self.catNickNameInput();
-        self.currentCat().catNicknames.push(nickname);
+        var nickname = self.catNickNameInput(); // reference back to ViewModel instance
+        this.catNicknames.push(nickname);
     };
-    self.removeCatNickname = function() {
+    this.removeCatNickname = function() {
         // var nickname = $('#cat-nickname').val();
-        var nickname = self.catNickNameInput();
-        var foundCatIndex = self.currentCat().catNicknames().indexOf(nickname);
+        var nickname = self.catNickNameInput(); // reference back to ViewModel instance
+        var foundCatIndex = this.catNicknames().indexOf(nickname);
         if (foundCatIndex >= 0) {
-            self.currentCat().catNicknames.splice(foundCatIndex, 1);
+            this.catNicknames.splice(foundCatIndex, 1);
         }
 
     };
